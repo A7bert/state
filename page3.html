@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="content-type" content="text/html; charset-UTF-8" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/barba.js/1.0.0/barba.min.js"></script>
+</head>
+
+<body>
+    <div id="barba-wrapper">
+        <div class="barba-container">
+            <img style="width: 600px;" src="http://otakukart.com/animeblog/wp-content/uploads/2017/07/IMG_20170722_002031.jpg" />
+            <br/>
+            <a href="/">Page One</a>
+            <a href="page2.html">Page Two</a>
+            <a href="page3.html">Page Three</a>
+        </div>
+    </div>
+    <script>
+        $(document).ready(function () {
+            Barba.Pjax.start();
+        });
+    </script>
+</body>
+
+</html>
