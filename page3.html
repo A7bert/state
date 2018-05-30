@@ -3,25 +3,73 @@
 
 <head>
     <meta http-equiv="content-type" content="text/html; charset-UTF-8" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+        crossorigin="anonymous">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/barba.js/1.0.0/barba.min.js"></script>
 </head>
 
 <body>
+
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+        <a class="navbar-brand" href="#">Barba</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse"
+            aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">Home
+                        <span class="sr-only">(current)</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="page2.html">Page Two</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link disabled" href="page3.html">Page Three</a>
+                </li>
+            </ul>
+            <form class="form-inline mt-2 mt-md-0">
+                <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+            </form>
+        </div>
+    </nav>
+
     <div id="barba-wrapper">
-        <div class="barba-container">
+        <div class="barba-container" style="text-align: center;">
             <img style="width: 600px;" src="http://otakukart.com/animeblog/wp-content/uploads/2017/07/IMG_20170722_002031.jpg" />
-            <br/>
-            <a href="/">Page One</a>
-            <a href="page2.html">Page Two</a>
-            <a href="page3.html">Page Three</a>
         </div>
     </div>
+    
     <script>
-        $(document).ready(function () {
+        $('document').ready(function () {
+            var transEffect = Barba.BaseTransition.extend({
+                start: function () {
+                    this.newContainerLoading.then(val => this.fadeInNewcontent($(this.newContainer)));
+                },
+                fadeInNewcontent: function (nc) {
+                    nc.hide();
+                    var _this = this;
+                    $(this.oldContainer).fadeOut(1000).promise().done(() => {
+                        nc.css('visibility', 'visible');
+                        nc.fadeIn(1000, function () {
+                            _this.done();
+                        })
+                    });
+                }
+            });
+            Barba.Pjax.getTransition = function () {
+                return transEffect;
+            }
             Barba.Pjax.start();
         });
     </script>
+
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
 </body>
 
 </html>
